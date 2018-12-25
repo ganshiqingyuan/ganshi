@@ -1,0 +1,208 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# �������ļ�:29.11.2018 15:25:09
+
+newmtl skin01
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.1294 0.1294 0.1294
+	map_Ka ./ColorMap.jpg
+	map_Kd ./ColorMap.jpg
+
+newmtl skin02
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.1294 0.1294 0.1294
+	map_Ka ./ColorMap.jpg
+	map_Kd ./ColorMap.jpg
+
+newmtl skin13
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.1294 0.1294 0.1294
+	map_Ka ./ColorMap.jpg
+	map_Kd ./ColorMap.jpg
+
+newmtl skin11
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.1294 0.1294 0.1294
+	map_Ka ./ColorMap.jpg
+	map_Kd ./ColorMap.jpg
+
+newmtl skin10
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.1294 0.1294 0.1294
+	map_Ka ./ColorMap.jpg
+	map_Kd ./ColorMap.jpg
+
+newmtl skin03
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.1294 0.1294 0.1294
+	map_Ka ./ColorMap.jpg
+	map_Kd ./ColorMap.jpg
+
+newmtl skin04
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.1294 0.1294 0.1294
+	map_Ka ./ColorMap.jpg
+	map_Kd ./ColorMap.jpg
+
+newmtl skin05
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.1294 0.1294 0.1294
+	map_Ka ./ColorMap.jpg
+	map_Kd ./ColorMap.jpg
+
+newmtl Pupil
+	Ns 43.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0500 0.0500 0.0500
+	Ke 0.0000 0.0000 0.0000
+
+newmtl Eye
+	Ns 43.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.8000 0.8000 0.8000
+	Ks 0.0500 0.0500 0.0500
+	Ke 0.0000 0.0000 0.0000
+
+newmtl skin07
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.1294 0.1294 0.1294
+	map_Ka ./ColorMap.jpg
+	map_Kd ./ColorMap.jpg
+
+newmtl skin06
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.1294 0.1294 0.1294
+	map_Ka ./ColorMap.jpg
+	map_Kd ./ColorMap.jpg
+
+newmtl skin09
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.1294 0.1294 0.1294
+	map_Ka ./ColorMap.jpg
+	map_Kd ./ColorMap.jpg
+
+newmtl skin08
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.1294 0.1294 0.1294
+	map_Ka ./ColorMap.jpg
+	map_Kd ./ColorMap.jpg
+
+newmtl skin12
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.1294 0.1294 0.1294
+	map_Ka ./ColorMap.jpg
+	map_Kd ./ColorMap.jpg

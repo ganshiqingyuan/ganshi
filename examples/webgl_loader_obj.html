@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>three.js webgl - loaders - OBJ loader</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<style>
+		body {
+			font-family: Monospace;
+			background-color: #000;
+			color: #fff;
+			margin: 0px;
+			overflow: hidden;
+		}
+
+		#info {
+			color: #fff;
+			position: absolute;
+			top: 10px;
+			width: 100%;
+			text-align: center;
+			z-index: 100;
+			display: block;
+		}
+
+		#info a,
+		.button {
+			color: #f00;
+			font-weight: bold;
+			text-decoration: underline;
+			cursor: pointer
+		}
+	</style>
+</head>
+
+<body>
+
+	<script src="./js/three.min.js"></script>
+	<script src="./objloader.js"></script>
+	<script src="http://www.wjceo.com/lib/js/controls/OrbitControls.js"></script>
+	<script src="./js/mtlloader.js"></script>
+
+	<script>
+		var clickflag = true
+		var moveflag = false
+
+		var INTERSECTED;
+		var raycaster;
+		var mouse;
+		var intersects = [];
+
+		var mainCanvas
+
+		var container, stats;
+
+		var camera, scene, renderer;
+
+		var mouseX = 0, mouseY = 0;
+
+		var windowHalfX = window.innerWidth / 2;
+		var windowHalfY = window.innerHeight / 2;
+
+		var timer
+
+		init();
+		var controls = new THREE.OrbitControls(camera);
+
+		function init() {
+			raycaster = new THREE.Raycaster();
+			mouse = new THREE.Vector2();
+
+			container = document.createElement('div');
+			document.body.appendChild(container);
+			mainCanvas = container
+
+			camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
+			camera.position.z = 100;
+
+			scene = new THREE.Scene();
+
+			// 背景
+			var loaderimg = new THREE.CubeTextureLoader();
+				loaderimg.setPath( 'obj/' );
+
+				var textureCube = loaderimg.load( [
+					'px (1).jpg', 'nx (1).jpg',
+					'py (1).jpg', 'ny (1).jpg',
+					'pz (1).jpg', 'nz (1).jpg'
+				] );
+
+				scene.background = textureCube;
+
+			var ambient = new THREE.AmbientLight(0x101030);
+			scene.add(ambient);
+
+			var directionalLight = new THREE.DirectionalLight(0xffeedd);
+			directionalLight.position.set(0, 0, 1);
+			scene.add(directionalLight);
+
+			var directionalLight1 = new THREE.DirectionalLight(0xffeedd);
+			directionalLight1.position.set(0, 0, -1);
+			scene.add(directionalLight1);
+
+			var directionalLight2 = new THREE.DirectionalLight(0xffeedd);
+			directionalLight2.position.set(0, -1, 0);
+			scene.add(directionalLight2);
+
+
+			var manager = new THREE.LoadingManager();
+			manager.onProgress = function (item, loaded, total) {
+
+				console.log(item, loaded, total);
+
+			};
+
+			var texture = new THREE.Texture();
+
+			/*var loader = new THREE.ImageLoader(manager);
+			loader.load('./male02/ColorMap.tga', function (image) {
+
+				texture.image = image;
+				texture.needsUpdate = true;
+
+			});
+			var loader = new THREE.TextureLoader();
+			*/
+
+			//test model
+			var mtlLoader = new THREE.MTLLoader();
+			//设置路径，也可不是设置，在load中加载完整路径也可
+			mtlLoader.setPath('obj/');
+			mtlLoader.load('moxing.mtl', function (materials) {
+				console.log(materials)
+				materials.preload();
+				for (var key in materials.materials) {
+					console.log(key)
+					materials.materials[key].transparent = true; // 类似如此修改材质属性即可
+				}
+				var objLoader = new THREE.OBJLoader();
+				objLoader.setMaterials(materials);
+				objLoader.setPath('obj/');
+				objLoader.load('moxing.obj', function (object) {
+					console.log(materials)
+					//object.material=texture
+					console.log(object)
+					object.scale.x = 0.7;
+					object.scale.y = 0.7;
+					object.scale.z = 0.7;
+					object.position.y = - 45;
+					scene.add(object);
+					animate();
+				});
+			});
+			//});
+
+
+			renderer = new THREE.WebGLRenderer();
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			container.appendChild(renderer.domElement);
+
+
+			mainCanvas.addEventListener('mousedown', onDocumentClick, false);
+
+
+
+			mainCanvas.addEventListener('mouseup', function () {
+				console.log('释放click和移动')
+				clickflag = true
+
+			}, false);
+
+			//
+
+			window.addEventListener('resize', onWindowResize, false);
+
+		}
+
+		function onWindowResize() {
+
+			windowHalfX = window.innerWidth / 2;
+			windowHalfY = window.innerHeight / 2;
+
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+
+			renderer.setSize(window.innerWidth, window.innerHeight);
+
+		}
+		function areaClickNew(ctgryId, ctgryName) {
+
+			var path = '<%=path%>';
+			//document.forms[0].target = "rightCmitFrame";
+			//document.forms[0].action = path + "/injureItemLoad.do?InjureItemFlag=${param.InjureItemFlag}&ctgryId=" + ctgryId+ "&ctgryName="+encodeURI(encodeURI(ctgryName))+"&chkLowerDept=1";
+			//document.forms[0].submit();
+			//组装查询dto
+			//var qtDTO = {'bodyId':ctgryId}
+			//	window.top.frames["rightCmitFrame"].loadInjureItemList(ctgryId,"bodyId",1,10);
+		}
+
+		function onDocumentClick(event) {
+			clickflag = false
+			event.preventDefault();
+			mouse.x = ((event.clientX - mainCanvas.getBoundingClientRect().left) / mainCanvas.offsetWidth) * 2 - 1;
+			mouse.y = - ((event.clientY - mainCanvas.getBoundingClientRect().top) / mainCanvas.offsetHeight) * 2 + 1;
+			setTimeout(function () {
+				if (!clickflag) {
+					return
+				}
+				raycaster.setFromCamera(mouse, camera);
+				var intersects = raycaster.intersectObjects(scene.children[4].children);
+
+				if (intersects.length > 0) {
+					//console.log("123")
+					var partsname = intersects[0].object.name;
+					if (partsname == "xxxxx" || partsname == "yanjing") {
+						return
+					}
+					console.log(intersects[0].object.name)
+					if (INTERSECTED != partsname) {
+						//if (INTERSECTED) Array.isArray(INTERSECTED.material)?INTERSECTED.material[0].color.setHex(INTERSECTED.currentHex):INTERSECTED.material.color.setHex(INTERSECTED.currentHex);
+						if (INTERSECTED) INTERSECTED.material.color.setHex(INTERSECTED.currentHex);
+						INTERSECTED = intersects[0].object;
+						INTERSECTED.currentHex = Array.isArray(INTERSECTED.material) ? INTERSECTED.material[0].color.getHex() : INTERSECTED.material.color.getHex();
+						//INTERSECTED.currentHex =INTERSECTED.material.color.getHex();
+						//Array.isArray(INTERSECTED.material)?INTERSECTED.material[0].color.set( 0xff0000 ):INTERSECTED.material.color.set( 0xff0000 )
+						INTERSECTED.material.color.set('#a75500')
+						//alert(INTERSECTED.name)
+						if (partsname == "shangzhi") {
+							// console.log(INTERSECTED.name);
+							areaClickNew('9FDD318FC9B1447ABAC4DEFC124E60A5', '上肢创伤');
+						}
+						else if (partsname == "erbu") {
+							areaClickNew('205976AF6D134B4FB5D2E8C5FCA3E5F5', '耳部创伤');
+						}
+
+						else if (partsname == "yanjing") {
+							areaClickNew('F394E77BE92E4B2187CB055CECA5067B', '眼部创伤');
+						}
+						else if (partsname == 'toubu') {
+							areaClickNew('53803AC6687B434B906CA6A426D24CB9', '颅骨创伤');
+						}
+						else if (partsname == 'bizi') {
+							areaClickNew('543A8D57F891496C8A5B7E3B3A9EC15C', '鼻部创伤');
+						}
+						else if (partsname == 'kouqiang') {
+							areaClickNew('05AAD96E15F240F89378D433B76922CC', '颌面口腔创伤');
+						}
+						else if (partsname == 'xiazhi') {
+							areaClickNew('F7BD36FD643B4D7392185146DF147FD1', '下肢创伤');
+						}
+						else if (partsname == 'xiongbu') {
+							areaClickNew('C578B4EE3DF0462F84B3A3BD5C1C96E2', '胸');
+						}
+						else if (partsname == 'miniaoshengzhi') {
+							areaClickNew('2B89B7E51BCD431ABF22B588A9BA08F0', '泌尿生殖系统');
+						}
+
+					}
+				} else {
+					if (INTERSECTED) Array.isArray(INTERSECTED.material) ? INTERSECTED.material[0].color.set(INTERSECTED.currentHex) : INTERSECTED.material.color.set(INTERSECTED.currentHex);
+					//if (INTERSECTED)INTERSECTED.material.color.set(INTERSECTED.currentHex);
+					INTERSECTED = null;
+				}
+
+			}, 200)
+		}
+		//
+
+		function animate() {
+			//	renderer.render(scene, camera);
+			controls.update();
+			requestAnimationFrame(animate);
+			//	requestAnimationFrame( animate );
+			render();
+			//console.log(raycaster)
+			//console.log("213")
+
+
+
+		}
+
+
+		function render() {
+
+			//camera.position.x += ( mouseX - camera.position.x ) * .05;
+			//camera.position.y += ( - mouseY - camera.position.y ) * .05;
+
+			//camera.lookAt( scene.position );
+
+			renderer.render(scene, camera);
+
+		}
+	</script>
+
+</body>
+
+</html>
